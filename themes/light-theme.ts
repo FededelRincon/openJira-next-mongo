@@ -6,7 +6,7 @@ export const lightTheme = createTheme({
     palette: {
         mode: 'light',
         background: {
-            default: grey[400],
+            default: grey[300],
         },
         primary: {
             main: '#4a148c'
@@ -20,6 +20,16 @@ export const lightTheme = createTheme({
 
     },
     components: {
-        
+        MuiAppBar: {
+            defaultProps: {
+                elevation : 0, 
+            },
+            styleOverrides: {
+                root: {
+                    // backgroundColor: '#4a148c'
+                    
+                }
+            }
+        }
     }
 });
