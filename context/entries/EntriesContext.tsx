@@ -3,7 +3,10 @@ import { Entry } from '../../interfaces';
 
 
 interface ContextProps {
-    entries: Entry[];    // Todo: falta el tipo de dato del arreglo
+    entries: Entry[]; 
+
+    //Methods
+    addNewEntry: (description: string) => void;
 }
 
 
