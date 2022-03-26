@@ -3,7 +3,7 @@ import { Entry } from '../interfaces';
 
 
 
-interface IEntry extends Entry {
+export interface IEntry extends Entry {
     //si quisiera agregar algo q solo va a usar este modelo, puedo hacerlo desde aca
 }
 
