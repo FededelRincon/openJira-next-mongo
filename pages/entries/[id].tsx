@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useMemo, FC } from 'react';
+import { ChangeEvent, useState, useMemo, FC, useContext } from 'react';
 import { GetServerSideProps } from 'next';
 
 import { capitalize, Button, Card, CardActions, CardContent, CardHeader, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, IconButton } from "@mui/material";
@@ -9,6 +9,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { dbEntries } from '../../database';
 import { Layout } from "../../components/layouts";
 import { Entry, EntryStatus } from "../../interfaces";
+import { EntriesContext } from '../../context/entries';
 
 
 
@@ -24,6 +25,8 @@ interface Props {
 
 export const EntryPage:FC<Props> = ({ entry }) => {
     //siempre tengo esta entry, sino el mismo getServerSideProps me redireccionaria para el home
+
+    const { updateEntry } = useContext(EntriesContext)
 
     const [inputValue, setInputValue] = useState( entry.description );
     const [status, setStatus] = useState<EntryStatus>( entry.status)
@@ -42,7 +45,15 @@ export const EntryPage:FC<Props> = ({ entry }) => {
     }
 
     const onSave = () => {
-        console.log({ inputValue, status });
+        if( inputValue.trim().length === 0 ) return;    //no permito entradas sin texto
+
+        const updatedEntry: Entry = {
+            ...entry,
+            status,
+            description: inputValue
+        }
+
+        updateEntry( updatedEntry, true );
     }
 
 
