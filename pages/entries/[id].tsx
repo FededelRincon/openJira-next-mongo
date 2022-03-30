@@ -11,6 +11,7 @@ import { Layout } from "../../components/layouts";
 import { Entry, EntryStatus } from "../../interfaces";
 import { EntriesContext } from '../../context/entries';
 import { useRouter } from 'next/router';
+import { dateFunctions } from '../../utils';
 
 
 
@@ -26,7 +27,6 @@ interface Props {
 
 export const EntryPage:FC<Props> = ({ entry }) => {
     //siempre tengo esta entry, sino el mismo getServerSideProps me redireccionaria para el home
-
     const router = useRouter();
 
     const { updateEntry, deleteEntry } = useContext(EntriesContext)
@@ -77,7 +77,7 @@ export const EntryPage:FC<Props> = ({ entry }) => {
                     <Card>
                         <CardHeader
                             title={`Entrada: `}
-                            subheader={`Creada hace: ${ entry.createdAt } minutos `}
+                            subheader={`Creada ${ dateFunctions.getFormatDistanceToNow(entry.createdAt) }`}
                         />
                             <CardContent>
                                 <TextField 

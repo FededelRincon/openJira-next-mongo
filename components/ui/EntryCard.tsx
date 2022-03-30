@@ -4,6 +4,7 @@ import { DragEvent, FC, useContext } from 'react';
 
 import { UIContext } from '../../context/ui';
 import { Entry } from '../../interfaces'
+import { dateFunctions } from '../../utils';
 
 
 interface Props {
@@ -45,7 +46,7 @@ export const EntryCard:FC<Props> = ({ entry }) => {
                 </CardContent>
 
                 <CardActions sx={{ display: 'flex', justifyContent: 'end', paddingRight: '2'}}>
-                    <Typography variant='body2'>hace 30 min</Typography>
+                    <Typography variant='body2'>{ dateFunctions.getFormatDistanceToNow( entry.createdAt ) }</Typography>
                 </CardActions>
             </CardActionArea>
         </Card>
