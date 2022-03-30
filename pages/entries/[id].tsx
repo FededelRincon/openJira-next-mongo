@@ -10,6 +10,7 @@ import { dbEntries } from '../../database';
 import { Layout } from "../../components/layouts";
 import { Entry, EntryStatus } from "../../interfaces";
 import { EntriesContext } from '../../context/entries';
+import { useRouter } from 'next/router';
 
 
 
@@ -26,7 +27,9 @@ interface Props {
 export const EntryPage:FC<Props> = ({ entry }) => {
     //siempre tengo esta entry, sino el mismo getServerSideProps me redireccionaria para el home
 
-    const { updateEntry } = useContext(EntriesContext)
+    const router = useRouter();
+
+    const { updateEntry, deleteEntry } = useContext(EntriesContext)
 
     const [inputValue, setInputValue] = useState( entry.description );
     const [status, setStatus] = useState<EntryStatus>( entry.status)
@@ -54,6 +57,12 @@ export const EntryPage:FC<Props> = ({ entry }) => {
         }
 
         updateEntry( updatedEntry, true );
+    }
+
+
+    const onDelete = () => {
+        deleteEntry( entry, true );
+        router.push('/')
     }
 
 
@@ -123,13 +132,17 @@ export const EntryPage:FC<Props> = ({ entry }) => {
                 </Grid>
             </Grid>
 
-            <IconButton sx={{
-                position:'fixed',
-                bottom: 30,
-                right: 30,
-                backgroundColor: 'error.dark'
-            }}>
-                <DeleteOutlineOutlinedIcon />
+            <IconButton 
+                onClick={ onDelete }
+                sx={{
+                    position:'fixed',
+                    bottom: 30,
+                    right: 30,
+                    backgroundColor: 'error.dark',
+               }}
+            >
+                <DeleteOutlineOutlinedIcon 
+                />
             </IconButton>
             
 
